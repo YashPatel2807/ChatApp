@@ -1,0 +1,66 @@
+<!--
+  Chit Chat - Main HTML file
+  - Contains the chat UI, floating hearts background, and form for sending messages
+  - Loads client-side JavaScript and CSS
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chit Chat</title>
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Establish the connection between Server and Client -->
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="./js/client.js"></script>
+  </head>
+  <body>
+    <!-- Navigation bar with logo and app title -->
+    <nav>
+      <img class="logo" src="chit-chat.png" alt="Chit Chat" />
+      <span class="app-title">ChitChat</span>
+    </nav>
+    <!-- Floating hearts background -->
+    <div id="hearts-bg"></div>
+    <!-- Chat message container -->
+    <div class="container">
+      <div class="message message-center message-default">Let's chat</div>
+      <!-- <div class="message message-right">Hey</div>
+      <div class="message message-left">Hello</div> -->
+    </div>
+    <!-- Message input form -->
+    <div class="send">
+      <form action="#" id="message-form">
+        <input
+          type="text"
+          id="message-input"
+          placeholder="Type your message here..."
+          autocomplete="off"
+        />
+        <button type="submit" id="send-button">Send</button>
+      </form>
+    </div>
+    <!-- Floating hearts animation script -->
+    <script>
+      // Floating hearts background effect
+      const heartCount = 16;
+      const heartsBg = document.getElementById("hearts-bg");
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        // 70% hearts random, 30% from right corner
+        if (i < Math.floor(heartCount * 0.7)) {
+          heart.style.left = Math.random() * 100 + "vw";
+        } else {
+          // right corner: randomize within last 10vw
+          heart.style.left = 90 + Math.random() * 10 + "vw";
+        }
+        heart.style.animationDelay = Math.random() * 8 + "s";
+        heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+        heart.style.opacity = 0.6 + Math.random() * 0.4;
+        heartsBg.appendChild(heart);
+      }
+    </script>
+  </body>
+</html>
